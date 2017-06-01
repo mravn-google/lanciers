@@ -14,5 +14,5 @@ main() {
       new Pair(bob, carol),
     ],
   );
-  print(maxPairingQuadratic(graph));
+  print(maxPairing(graph));
 }

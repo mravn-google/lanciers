@@ -124,44 +124,44 @@ void main() {
   ]);
   group('Exponential algorithm', () {
     test('empty graph', () {
-      checkMaxPairing(graph([], [], []), maxPairingExponential, []);
+      checkMaxPairing(graph([], [], []), naiveMaxPairing, []);
     });
     test('graph without edges', () {
-      checkMaxPairing(graph([bob], [alice], []), maxPairingExponential, []);
+      checkMaxPairing(graph([bob], [alice], []), naiveMaxPairing, []);
     });
     test('graph with single edge', () {
       checkMaxPairing(graph([bob], [alice], [pair(bob, alice)]),
-          maxPairingExponential, [pair(bob, alice)]);
+          naiveMaxPairing, [pair(bob, alice)]);
     });
     test('graph with a max pairing', () {
       checkMaxPairing(
           graph([bob, dean], [alice, carol],
               [pair(bob, alice), pair(dean, alice), pair(bob, carol)]),
-          maxPairingExponential,
+          naiveMaxPairing,
           [pair(bob, carol), pair(dean, alice)]);
     });
     test('vorrevang', () {}, skip: true); // takes too long
   });
   group('Quadratic algorithm', () {
     test('empty graph', () {
-      checkMaxPairing(graph([], [], []), maxPairingQuadratic, []);
+      checkMaxPairing(graph([], [], []), maxPairing, []);
     });
     test('graph without edges', () {
-      checkMaxPairing(graph([bob], [alice], []), maxPairingQuadratic, []);
+      checkMaxPairing(graph([bob], [alice], []), maxPairing, []);
     });
     test('graph with single edge', () {
-      checkMaxPairing(graph([bob], [alice], [pair(bob, alice)]),
-          maxPairingQuadratic, [pair(bob, alice)]);
+      checkMaxPairing(graph([bob], [alice], [pair(bob, alice)]), maxPairing,
+          [pair(bob, alice)]);
     });
     test('graph with a max pairing', () {
       checkMaxPairing(
           graph([bob, dean], [alice, carol],
               [pair(bob, alice), pair(dean, alice), pair(bob, carol)]),
-          maxPairingQuadratic,
+          maxPairing,
           [pair(bob, carol), pair(dean, alice)]);
     });
     test('vorrevang', () {
-      expect(maxPairingQuadratic(vorrevang), hasLength(23));
+      expect(maxPairing(vorrevang), hasLength(23));
     });
   });
 }

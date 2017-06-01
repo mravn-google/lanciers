@@ -22,6 +22,5 @@ A simple usage example:
           new Pair(bob, carol),
         ],
       );
-      print(maxPairingExponential(graph));
-      print(maxPairingQuadratic(graph));
+      print(maxPairing(graph));
     }

@@ -95,7 +95,7 @@ class Girl extends Dancer {
   Girl(String name) : super(name);
 }
 
-List<Pair> maxPairingExponential(PairingGraph graph) {
+List<Pair> naiveMaxPairing(PairingGraph graph) {
   void selectAll(List<Pair> pairs) {
     for (final pair in pairs) {
       pair.select();
@@ -113,7 +113,7 @@ List<Pair> maxPairingExponential(PairingGraph graph) {
     pair.mark();
     final candidatePairing = <Pair>[]
       ..add(pair)
-      ..addAll(maxPairingExponential(graph));
+      ..addAll(naiveMaxPairing(graph));
     if (bestPairing.length < candidatePairing.length) {
       deselectAll(bestPairing);
       bestPairing = candidatePairing;
@@ -124,7 +124,7 @@ List<Pair> maxPairingExponential(PairingGraph graph) {
   return bestPairing;
 }
 
-List<Pair> maxPairingQuadratic(PairingGraph graph) {
+List<Pair> maxPairing(PairingGraph graph) {
   bool findAndInvertChainFrom(Boy boy) {
     for (final pair1 in graph
         .pairsInvolving(boy)
