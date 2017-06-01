@@ -1,6 +1,6 @@
 # lanciers
 
-A library for Dart developers. It is awesome.
+Max bipartite pairing dressed up for Les Lanciers.
 
 ## Usage
 
@@ -9,11 +9,19 @@ A simple usage example:
     import 'package:lanciers/lanciers.dart';
 
     main() {
-      var awesome = new Awesome();
+      final alice = new Girl('Alice');
+      final bob = new Boy('Bob');
+      final carol = new Girl('Carol');
+      final dean = new Boy('Dean');
+      final graph = new PairingGraph(
+        <Boy>[bob, dean],
+        <Girl>[alice, carol],
+        <Pair>[
+          new Pair(bob, alice),
+          new Pair(dean, alice),
+          new Pair(bob, carol),
+        ],
+      );
+      print(maxPairingExponential(graph));
+      print(maxPairingQuadratic(graph));
     }
-
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: http://example.com/issues/replaceme
