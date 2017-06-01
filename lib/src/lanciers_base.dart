@@ -33,8 +33,12 @@ class Pair {
 
   Pair(this.boy, this.girl);
 
-  void toggleSelected() {
-    isSelected = !isSelected;
+  void select() {
+    isSelected = true;
+  }
+
+  void deselect() {
+    isSelected = false;
   }
 
   bool get isMarked => boy.isMarked || girl.isMarked;
@@ -92,9 +96,15 @@ class Girl extends Dancer {
 }
 
 List<Pair> maxPairingExponential(PairingGraph graph) {
-  void toggleSelected(List<Pair> pairs) {
+  void selectAll(List<Pair> pairs) {
     for (final pair in pairs) {
-      pair.toggleSelected();
+      pair.select();
+    }
+  }
+
+  void deselectAll(List<Pair> pairs) {
+    for (final pair in pairs) {
+      pair.deselect();
     }
   }
 
@@ -105,9 +115,9 @@ List<Pair> maxPairingExponential(PairingGraph graph) {
       ..add(pair)
       ..addAll(maxPairingExponential(graph));
     if (bestPairing.length < candidatePairing.length) {
-      toggleSelected(bestPairing);
+      deselectAll(bestPairing);
       bestPairing = candidatePairing;
-      toggleSelected(bestPairing);
+      selectAll(bestPairing);
     }
     pair.unmark();
   }
@@ -122,7 +132,7 @@ List<Pair> maxPairingQuadratic(PairingGraph graph) {
       final girl = pair1.girl;
       if (graph.isAlone(girl)) {
         girl.mark();
-        pair1.toggleSelected();
+        pair1.select();
         return true;
       } else {
         for (final pair2 in graph
@@ -130,8 +140,8 @@ List<Pair> maxPairingQuadratic(PairingGraph graph) {
             .where((pair) => pair.isSelected && !pair.boy.isMarked)) {
           pair2.mark();
           if (findAndInvertChainFrom(pair2.boy)) {
-            pair1.toggleSelected();
-            pair2.toggleSelected();
+            pair1.select();
+            pair2.deselect();
             return true;
           }
         }
